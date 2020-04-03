@@ -1,0 +1,5 @@
+config {
+  type: "table"
+}
+
+${inputs.funnels.map((f) => `(select * from (${steps(f, ref("steps_raw"))})`).join("\n\nunion all\n\n")}

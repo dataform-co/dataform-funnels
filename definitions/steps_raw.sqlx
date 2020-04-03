@@ -1,0 +1,24 @@
+config {
+  type: "table"
+}
+
+with steps as (
+select
+  ${[...package_params.events_table_timestamp,
+     ...package_params.events_table_userid, 
+     ...package_params.events_table_additional_fields
+     ].map((i) => `${i}`).join(",\n  ")},
+  case
+    ${inputs.events.map((i) => `when ${i.sql} then "${i.name}"`).join("\n    ")}
+    else null
+  end as step
+from
+  ${package_params.events_table} 
+)
+
+select
+  * 
+from 
+  steps 
+where 
+  step is not null
