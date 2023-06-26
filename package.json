@@ -1,6 +1,6 @@
 {
     "name": "dataform-funnels",
     "dependencies": {
-        "@dataform/core": "1.5.0"
+        "@dataform/core": "2.6.0"
     }
 }
